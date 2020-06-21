@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+spring:
+  application:
+    name: webcare
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;database=webcare
+    username: sa
+    password: root
+  jmx:
+    default-domain: webcare
+  thymeleaf:
+    enabled: true
+    check-template-location: true
+    prefix: classpath:/webapp/
+  jpa:
+    hibernate:
+      ddl-auto: none
+      use-new-id-generator-mappings: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+
