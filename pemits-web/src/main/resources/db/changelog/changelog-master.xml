@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+  <!-- change sets accumulated with each version of release -->
+
+  <!-- new change sets below -->
+  <changeSet author="Elvin Shrestha" id="1-create-hibernate_sequence">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="hibernate_sequence"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="hibernate_sequence">
+      <column name="next_val" type="BIGINT"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="2-create-users" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="users"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="users">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="username" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="password" type="VARCHAR(250)"/>
+      <column name="name" type="VARCHAR(250)"/>
+      <column name="email" type="VARCHAR(255)"/>
+      <column name="status" type="INT"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

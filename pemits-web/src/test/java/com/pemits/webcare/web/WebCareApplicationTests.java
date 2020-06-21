@@ -1,4 +1,4 @@
-package com.pemits.webcare;
+package com.pemits.webcare.web;
 
 import org.junit.jupiter.api.Test;
 
