@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pemits.webcare.api.user.entity.User;
 import com.pemits.webcare.api.user.service.UserService;
 import com.pemits.webcare.core.controller.BaseController;
+import com.pemits.webcare.core.dto.RestResponseDto;
 
 /**
  * @author Elvin Shrestha on 6/21/2020
@@ -30,6 +31,6 @@ public class UserController extends BaseController<User, Long> {
 
     @GetMapping("/authenticated")
     public ResponseEntity<?> getAuthenticated() {
-        return ResponseEntity.ok(service.getAuthenticated());
+        return new RestResponseDto().success(service.getAuthenticated());
     }
 }
