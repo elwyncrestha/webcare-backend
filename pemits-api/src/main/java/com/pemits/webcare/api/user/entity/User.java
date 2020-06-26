@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.pemits.webcare.core.entity.BaseEntity;
 import com.pemits.webcare.core.enums.Status;
+import com.pemits.webcare.core.enums.UserType;
 
 /**
  * @author Elvin Shrestha on 6/21/2020
@@ -30,6 +31,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
     private String name;
     private String email;
     private Status status;
+    private UserType userType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

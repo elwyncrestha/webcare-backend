@@ -8,11 +8,15 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.pemits.webcare.api.user.entity.User;
+import com.pemits.webcare.core.enums.UserType;
 
 /**
  * @author Elvin Shrestha on 6/21/2020
  */
 public class UserSpec implements Specification<User> {
+
+    private static final String FILTER_BY_NAME = "name";
+    private static final String FILTER_BY_USER_TYPE = "userType";
 
     private final String property;
     private final String value;
@@ -25,6 +29,13 @@ public class UserSpec implements Specification<User> {
     @Override
     public Predicate toPredicate(Root<User> root, CriteriaQuery<?> criteriaQuery,
         CriteriaBuilder criteriaBuilder) {
-        return null;
+        switch (property) {
+            case FILTER_BY_NAME:
+                return criteriaBuilder.like(root.get(FILTER_BY_NAME), "%" + value + "%");
+            case FILTER_BY_USER_TYPE:
+                return criteriaBuilder.equal(root.get(FILTER_BY_USER_TYPE), UserType.valueOf(value));
+            default:
+                return null;
+        }
     }
 }
