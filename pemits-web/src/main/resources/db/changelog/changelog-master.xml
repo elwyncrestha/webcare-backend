@@ -50,29 +50,41 @@
     </createTable>
   </changeSet>
 
-<changeSet id="3-create-department" author="Mohammad Hussain">
+  <changeSet id="3-create-department" author="Mohammad Hussain">
 
-  <preConditions onFail="MARK_RAN">
-    <not>
-      <tableExists tableName="department"/>
-    </not>
-  </preConditions>
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="department"/>
+      </not>
+    </preConditions>
 
-  <createTable tableName="department">
-    <column name="id" type="BIGINT" autoIncrement="true">
-      <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DEPARTMENT"/>
-    </column>
-    <column name="created_at" type="DATETIME">
-      <constraints nullable="false"/>
-    </column>
-    <column name="last_modified_at" type="DATETIME">
-      <constraints nullable="false"/>
-    </column>
-    <column name="created_by" type="BIGINT"/>
-    <column name="last_modified_by" type="BIGINT"/>
-    <column name="version" type="INT"/>
-    <column name="name" type="VARCHAR(255)"/>
-  </createTable>
-</changeSet>
+    <createTable tableName="department">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DEPARTMENT"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="name" type="VARCHAR(255)"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="4-alter-users-add-user_type" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <columnExists tableName="users" columnName="user_type"/>
+      </not>
+    </preConditions>
+
+    <addColumn tableName="users">
+      <column name="user_type" type="INT"/>
+    </addColumn>
+  </changeSet>
 
 </databaseChangeLog>
