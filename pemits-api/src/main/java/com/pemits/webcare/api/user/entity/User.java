@@ -67,4 +67,14 @@ public class User extends BaseEntity<Long> implements UserDetails {
     public boolean isEnabled() {
         return status.equals(Status.ACTIVE);
     }
+
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
+    }
 }
