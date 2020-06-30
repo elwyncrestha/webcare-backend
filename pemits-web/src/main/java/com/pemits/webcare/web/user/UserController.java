@@ -5,7 +5,10 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +18,7 @@ import com.pemits.webcare.api.user.service.UserService;
 import com.pemits.webcare.core.controller.BaseController;
 import com.pemits.webcare.core.dto.RestResponseDto;
 import com.pemits.webcare.core.enums.Status;
+import com.pemits.webcare.web.user.dto.ChangePasswordDto;
 
 /**
  * @author Elvin Shrestha on 6/21/2020
@@ -26,12 +30,14 @@ public class UserController extends BaseController<User, Long> {
 
     static final String URL = "/v1/users";
     private final UserService service;
+    private final PasswordEncoder passwordEncoder;
 
     protected UserController(
-        UserService service
-    ) {
+        UserService service,
+        PasswordEncoder passwordEncoder) {
         super(service, log.getClass());
         this.service = service;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/authenticated")
@@ -48,5 +54,25 @@ public class UserController extends BaseController<User, Long> {
 
         user.setStatus(status);
         return new RestResponseDto().success(service.save(user));
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto dto) {
+        User user = service.findOne(dto.getUserId()).orElse(null);
+
+        if (user == null) {
+            return new RestResponseDto()
+                .fail(HttpStatus.NOT_FOUND, Optional.of("User not found!!!"));
+        } else if (!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
+            return new RestResponseDto()
+                .fail(HttpStatus.FORBIDDEN, Optional.of("Wrong old password!!!"));
+        }
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        User updatedUser = service.save(user);
+        if (updatedUser == null) {
+            return new RestResponseDto()
+                .fail(HttpStatus.INTERNAL_SERVER_ERROR, Optional.of("Could not update password!!!"));
+        }
+        return new RestResponseDto().success(dto);
     }
 }
