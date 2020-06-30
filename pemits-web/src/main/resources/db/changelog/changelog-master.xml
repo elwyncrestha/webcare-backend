@@ -87,4 +87,31 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="5-create-inventory" author="Mohammad Hussain">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="inventory"/>
+      </not>
+    </preConditions>
+    <createTable tableName="inventory">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVENTORY"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="price" type="FLOAT"/>
+      <column name="quantity" type="FLOAT"/>
+      <column name="totalPrice" type="FLOAT"/>
+      <column name="purchaseDate" type="DATE"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>

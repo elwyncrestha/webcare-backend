@@ -18,6 +18,7 @@ public class InventorySpecBuilder extends BaseSpecBuilder<Inventory> {
 
     @Override
     protected Specification<Inventory> getSpecification(String property, String filterValue) {
-        return null;
+
+        return new InventorySpec(property,filterValue);
     }
 }
