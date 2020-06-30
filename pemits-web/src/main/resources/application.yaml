@@ -14,7 +14,7 @@ spring:
   thymeleaf:
     enabled: true
     check-template-location: true
-    prefix: classpath:/webapp/
+    prefix: classpath:/templates/
   jpa:
     hibernate:
       ddl-auto: none
@@ -25,4 +25,13 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.xml
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+
+pemits:
+  url: http://localhost:4200/
+
 
