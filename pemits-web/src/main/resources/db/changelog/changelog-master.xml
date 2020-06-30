@@ -109,8 +109,8 @@
       <column name="name" type="VARCHAR(255)"/>
       <column name="price" type="FLOAT"/>
       <column name="quantity" type="FLOAT"/>
-      <column name="totalPrice" type="FLOAT"/>
-      <column name="purchaseDate" type="DATE"/>
+      <column name="total_Price" type="FLOAT"/>
+      <column name="purchase_Date" type="DATE"/>
     </createTable>
   </changeSet>
 
