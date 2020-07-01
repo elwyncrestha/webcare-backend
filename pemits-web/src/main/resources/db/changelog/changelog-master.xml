@@ -130,4 +130,38 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="7-create-doctor" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="doctor"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="doctor">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCTOR"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="user_id" type="BIGINT">
+        <constraints foreignKeyName="FK_DOCTOR_USER_ID_USER_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="department_id" type="BIGINT">
+        <constraints foreignKeyName="FK_DOCTOR_DEPARTMENT_ID_DEPARTMENT_ID"
+          referencedTableName="department"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="specialization_field" type="VARCHAR(255)"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>

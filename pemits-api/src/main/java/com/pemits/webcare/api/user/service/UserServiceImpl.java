@@ -9,12 +9,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.pemits.webcare.api.doctor.entity.Doctor;
+import com.pemits.webcare.api.doctor.service.DoctorService;
 import com.pemits.webcare.api.user.entity.User;
 import com.pemits.webcare.api.user.repository.UserRepository;
 import com.pemits.webcare.api.user.repository.spec.UserSpecBuilder;
 import com.pemits.webcare.core.constant.EmailConstant.Template;
 import com.pemits.webcare.core.dto.EmailDto;
+import com.pemits.webcare.core.entity.AppUser;
 import com.pemits.webcare.core.enums.Status;
 import com.pemits.webcare.core.repository.BaseSpecBuilder;
 import com.pemits.webcare.core.service.BaseServiceImpl;
@@ -33,16 +37,21 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final DoctorService doctorService;
 
     protected UserServiceImpl(
         UserRepository repository,
-        PasswordEncoder passwordEncoder, EmailService emailService) {
+        PasswordEncoder passwordEncoder,
+        EmailService emailService,
+        DoctorService doctorService) {
         super(repository);
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.doctorService = doctorService;
     }
 
+    @Transactional
     @Override
     public User save(User user) {
         String password = null;
@@ -63,8 +72,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
         User saved = repository.save(user);
 
-        // send email in case of new user
+        // in case of new user
         if (password != null) {
+            // send email
             EmailDto emailDto = EmailDto.builder()
                 .template(Template.REGISTRATION_CREDENTIALS)
                 .to(user.getEmail())
@@ -74,6 +84,15 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
                 .webUrl(webUrl)
                 .build();
             emailService.send(emailDto);
+
+            // create associate entity
+            switch (saved.getUserType()) {
+                case DOCTOR:
+                    Doctor doctor = new Doctor();
+                    doctor.setUser(saved);
+                    saveAppUser(doctor);
+                    break;
+            }
         }
 
         return saved;
@@ -102,4 +121,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
                     .getClass() + "; Expected type User");
         }
     }
+
+    @Override
+    public AppUser saveAppUser(AppUser appUser) {
+        AppUser savedAppUser;
+        switch (appUser.getUserType()) {
+            case DOCTOR:
+                savedAppUser = doctorService.save((Doctor) appUser);
+                break;
+            default:
+                savedAppUser = null;
+        }
+        return savedAppUser;
+    }
+
 }
