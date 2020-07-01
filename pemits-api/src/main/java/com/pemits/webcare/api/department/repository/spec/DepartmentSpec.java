@@ -14,6 +14,8 @@ import javax.persistence.criteria.Root;
  */
 public class DepartmentSpec implements Specification<Department> {
 
+    private static final String FILTER_BY_NAME = "name";
+
     private final String property;
     private final String value;
 
@@ -25,6 +27,10 @@ public class DepartmentSpec implements Specification<Department> {
     @Override
     public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> criteriaQuery,
                                  CriteriaBuilder criteriaBuilder) {
+        switch (property) {
+            case FILTER_BY_NAME:
+                return criteriaBuilder.like(root.get(FILTER_BY_NAME), "%" + value + "%");
+        }
         return null;
     }
 }
