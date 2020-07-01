@@ -2,6 +2,8 @@ package com.pemits.webcare.api.user.entity;
 
 import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.pemits.webcare.core.entity.BaseEntity;
+import com.pemits.webcare.core.enums.Gender;
 import com.pemits.webcare.core.enums.Status;
 import com.pemits.webcare.core.enums.UserType;
 
@@ -32,6 +35,11 @@ public class User extends BaseEntity<Long> implements UserDetails {
     private String email;
     private Status status;
     private UserType userType;
+    private String address;
+    private String contactNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
