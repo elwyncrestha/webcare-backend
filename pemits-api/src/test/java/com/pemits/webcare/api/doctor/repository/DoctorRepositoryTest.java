@@ -7,7 +7,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -17,6 +19,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.pemits.webcare.BaseJpaTest;
 import com.pemits.webcare.api.department.repository.DepartmentRepository;
 import com.pemits.webcare.api.doctor.entity.Doctor;
+import com.pemits.webcare.api.doctor.repository.spec.DoctorSpec;
+import com.pemits.webcare.api.doctor.repository.spec.DoctorSpecBuilder;
 import com.pemits.webcare.api.user.repository.UserRepository;
 
 public class DoctorRepositoryTest extends BaseJpaTest {
@@ -107,6 +111,19 @@ public class DoctorRepositoryTest extends BaseJpaTest {
         final List<Doctor> doctors = repository.findAll();
 
         assertThat(doctors.size(), equalTo(4));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/user/users-of-type-doctor.xml")
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    public void testFindAllWithSpecShouldReturnFilteredListByDepartment() {
+        final Map<String, String> filter = new HashMap<>();
+        filter.put(DoctorSpec.FILTER_BY_DEPARTMENT_ID, String.valueOf(1L));
+        final DoctorSpecBuilder builder = new DoctorSpecBuilder(filter);
+        final List<Doctor> doctors = repository.findAll(builder.build());
+
+        assertThat(doctors.size(), equalTo(2));
     }
 
     @Test
