@@ -15,6 +15,7 @@ import com.pemits.webcare.api.doctor.entity.Doctor;
 public class DoctorSpec implements Specification<Doctor> {
 
     private static final String FILTER_BY_NAME = "user.name";
+    public static final String FILTER_BY_DEPARTMENT_ID = "department.id";
 
     private final String property;
     private final String value;
@@ -29,7 +30,9 @@ public class DoctorSpec implements Specification<Doctor> {
         CriteriaBuilder criteriaBuilder) {
         switch (property) {
             case FILTER_BY_NAME:
-                return criteriaBuilder.like(root.join("user").get("name"), "%" + value + "%");
+                return criteriaBuilder.equal(root.join("user").get("name"), value.toLowerCase());
+            case FILTER_BY_DEPARTMENT_ID:
+                return criteriaBuilder.equal(root.join("department").get("id"), Long.valueOf(value));
             default:
                 return null;
         }
