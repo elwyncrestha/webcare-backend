@@ -2,6 +2,7 @@ package com.pemits.webcare.api.department.repository;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -79,7 +80,7 @@ public class DepartmentRepositoryTest extends BaseJpaTest {
     public void testFindAllShouldReturnNotEmptyList() {
         final List<Department> departments = repository.findAll();
 
-        assertThat(departments.size(), equalTo(1));
+        assertThat(departments.size(), greaterThan(0));
     }
 
     @Test
@@ -93,19 +94,22 @@ public class DepartmentRepositoryTest extends BaseJpaTest {
     @Test
     @DatabaseSetup("/dataset/department/department-config.xml")
     public void testDeleteByIdShouldDeleteDepartment() {
+        long count = repository.count();
+
         repository.deleteById(MOCK_OPD_DEPARTMENT_ID);
 
-        assertThat(repository.findAll(), hasSize(0));
+        assertThat(repository.findAll(), hasSize((int) count - 1));
     }
 
     @Test
     @DatabaseSetup("/dataset/department/department-config.xml")
     public void testDeleteShouldDeleteDepartment() {
-        final Department department = repository.getOne(MOCK_OPD_DEPARTMENT_ID);
+        long count = repository.count();
 
+        final Department department = repository.getOne(MOCK_OPD_DEPARTMENT_ID);
         repository.delete(department);
 
-        assertThat(repository.findAll(), hasSize(0));
+        assertThat(repository.findAll(), hasSize((int) count - 1));
     }
 
     @Test
