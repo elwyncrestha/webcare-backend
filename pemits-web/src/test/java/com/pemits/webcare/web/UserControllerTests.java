@@ -30,7 +30,7 @@ import com.pemits.webcare.web.user.UserController;
 import com.pemits.webcare.web.user.dto.ChangePasswordDto;
 
 @ExtendWith(MockitoExtension.class)
-class WebCareApplicationTests {
+class UserControllerTests {
 
     @Mock
     private PasswordEncoder passwordEncoder;
