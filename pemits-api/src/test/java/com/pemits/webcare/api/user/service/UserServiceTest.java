@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.pemits.webcare.api.user.entity.User;
 import com.pemits.webcare.api.user.repository.UserRepository;
 import com.pemits.webcare.core.enums.UserType;
+import com.pemits.webcare.core.service.EmailService;
 
 public class UserServiceTest {
 
@@ -34,6 +35,9 @@ public class UserServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private EmailService emailService;
 
     @InjectMocks
     private UserServiceImpl service;
