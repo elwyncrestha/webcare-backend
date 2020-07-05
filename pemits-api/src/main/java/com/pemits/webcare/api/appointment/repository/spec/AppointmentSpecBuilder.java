@@ -1,10 +1,11 @@
 package com.pemits.webcare.api.appointment.repository.spec;
 
-import com.pemits.webcare.api.appointment.entity.Appointment;
-import com.pemits.webcare.core.repository.BaseSpecBuilder;
+import java.util.Map;
+
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.Map;
+import com.pemits.webcare.api.appointment.entity.Appointment;
+import com.pemits.webcare.core.repository.BaseSpecBuilder;
 
 /**
  * @Author Mohammad Hussain

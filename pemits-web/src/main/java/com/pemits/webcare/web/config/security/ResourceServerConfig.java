@@ -1,6 +1,7 @@
 package com.pemits.webcare.web.config.security;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -26,6 +27,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers("/oauth/token")
+            .permitAll()
+            .antMatchers(HttpMethod.POST, "/v1/appointment")
+            .permitAll()
+            .antMatchers(HttpMethod.GET, "/v1/departments/all")
+            .permitAll()
+            .antMatchers(HttpMethod.POST, "/v1/doctors/list/all")
             .permitAll()
             .antMatchers("/v1/**")
             .authenticated()

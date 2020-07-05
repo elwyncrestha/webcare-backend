@@ -1,12 +1,13 @@
 package com.pemits.webcare.api.appointment.repository.spec;
 
-import com.pemits.webcare.api.appointment.entity.Appointment;
-import org.springframework.data.jpa.domain.Specification;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.springframework.data.jpa.domain.Specification;
+
+import com.pemits.webcare.api.appointment.entity.Appointment;
 
 /**
  * @Author Mohammad Hussain
@@ -26,7 +27,7 @@ public class AppointmentSpec implements Specification<Appointment> {
 
     @Override
     public Predicate toPredicate(Root<Appointment> root, CriteriaQuery<?> query,
-                                 CriteriaBuilder criteriaBuilder) {
+        CriteriaBuilder criteriaBuilder) {
         switch (property) {
             case FILTER_BY_NAME:
                 return criteriaBuilder.like(root.get(FILTER_BY_NAME), "%" + value + "%");

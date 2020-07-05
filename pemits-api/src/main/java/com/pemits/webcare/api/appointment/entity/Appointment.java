@@ -1,23 +1,21 @@
 package com.pemits.webcare.api.appointment.entity;
 
-import com.pemits.webcare.api.department.entity.Department;
-import com.pemits.webcare.api.doctor.entity.Doctor;
-import com.pemits.webcare.core.entity.BaseEntity;
-import com.pemits.webcare.core.enums.Gender;
-import com.pemits.webcare.core.enums.UserType;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import com.pemits.webcare.api.department.entity.Department;
+import com.pemits.webcare.api.doctor.entity.Doctor;
+import com.pemits.webcare.api.patient.entity.Patient;
+import com.pemits.webcare.core.entity.BaseEntity;
 
 /**
  * @Author Mohammad Hussain
@@ -30,29 +28,21 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class Appointment extends BaseEntity<Long> implements Serializable {
 
-    @NotEmpty(message = "Name is required")
-    private String name;
-    @NotEmpty(message = "Address is required")
-    private String address;
-    @NotEmpty(message = "Contact number is required")
-    private String contactNumber;
-    @NotEmpty(message = "Email is required")
-    private String email;
-    @NotEmpty(message = "Gender is required")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    @NotEmpty(message = "Age is required")
-    private int age;
+    @OneToOne
+    private Patient patient;
+
     @NotEmpty(message = "Department is required")
     @OneToOne
     private Department department;
+
     @NotEmpty(message = "Doctor is required")
     @OneToOne
     private Doctor doctor;
-    @NotEmpty(message = "Appoint time is required")
-    private LocalDate appointmentDate;
-    @NotEmpty(message = "Preferred time is required")
-    private LocalDateTime preferredTime;
 
+    @NotEmpty(message = "Appointment date is required")
+    private LocalDate appointmentDate;
+
+    @NotEmpty(message = "Appointment time is required")
+    private LocalTime appointmentTime;
 
 }

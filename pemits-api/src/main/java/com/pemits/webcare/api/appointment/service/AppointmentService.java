@@ -8,4 +8,5 @@ import com.pemits.webcare.core.service.BaseService;
  * created on 7/5/2020
  */
 public interface AppointmentService extends BaseService<Appointment, Long> {
+
 }

@@ -1,8 +1,9 @@
 package com.pemits.webcare.api.appointment.repository;
 
+import org.springframework.stereotype.Repository;
+
 import com.pemits.webcare.api.appointment.entity.Appointment;
 import com.pemits.webcare.core.repository.BaseRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Author Mohammad Hussain
@@ -10,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AppointmentRepository extends BaseRepository<Appointment, Long> {
+
 }
