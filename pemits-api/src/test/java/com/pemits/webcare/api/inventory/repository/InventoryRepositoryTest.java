@@ -1,18 +1,23 @@
 package com.pemits.webcare.api.inventory.repository;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.pemits.webcare.BaseJpaTest;
-import com.pemits.webcare.api.inventory.entity.Inventory;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.pemits.webcare.BaseJpaTest;
+import com.pemits.webcare.api.inventory.entity.Inventory;
 
 public class InventoryRepositoryTest extends BaseJpaTest {
 
