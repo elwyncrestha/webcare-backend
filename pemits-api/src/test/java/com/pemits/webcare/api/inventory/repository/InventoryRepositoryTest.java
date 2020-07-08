@@ -49,9 +49,9 @@ public class InventoryRepositoryTest extends BaseJpaTest {
 
         Inventory inventory2 = new Inventory();
         inventory2.setName(MOCK_INVENTORY_NAME2);
-        inventory2.setPrice(1200.25f);
-        inventory2.setQuantity(2);
-        inventory2.setTotalPrice(1200 * 100);
+        inventory2.setPrice(2200.50f);
+        inventory2.setQuantity(100);
+        inventory2.setTotalPrice(2200.50f * 100);
         inventory2.setPurchaseDate(LocalDate.now());
 
         List<Inventory> saved = repository.saveAll(Arrays.asList(inventory1, inventory2));
