@@ -164,4 +164,73 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="8-create-doctor" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="patient"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="patient">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PATIENT"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="user_id" type="BIGINT">
+        <constraints foreignKeyName="FK_PATIENT_USER_ID_USER_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="age" type="INT"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="8-create-appointment" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="appointment"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="appointment">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_APPOINTMENT"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="patient_id" type="BIGINT">
+        <constraints foreignKeyName="FK_APPOINTMENT_PATIENT_ID_PATIENT_ID"
+          referencedTableName="patient"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="department_id" type="BIGINT">
+        <constraints foreignKeyName="FK_APPOINTMENT_DEPARTMENT_ID_DEPARTMENT_ID"
+          referencedTableName="department"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="doctor_id" type="BIGINT">
+        <constraints foreignKeyName="FK_APPOINTMENT_DOCTOR_ID_DOCTOR_ID"
+          referencedTableName="doctor"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="appointment_date" type="DATE"/>
+      <column name="appointment_time" type="TIME"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>

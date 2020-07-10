@@ -21,6 +21,7 @@ public class EmailDto {
     private String password;
     private String username;
     private String webUrl;
+    private String patientId;
 
     private Template template;
 }

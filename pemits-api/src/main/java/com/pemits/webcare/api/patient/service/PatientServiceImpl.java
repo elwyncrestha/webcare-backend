@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.pemits.webcare.api.patient.entity.Patient;
 import com.pemits.webcare.api.patient.repository.PatientRepository;
 import com.pemits.webcare.api.patient.repository.spec.PatientSpecBuilder;
+import com.pemits.webcare.api.user.entity.User;
 import com.pemits.webcare.core.repository.BaseSpecBuilder;
 import com.pemits.webcare.core.service.BaseServiceImpl;
 
@@ -28,5 +29,12 @@ public class PatientServiceImpl extends BaseServiceImpl<Patient, Long> implement
     @Override
     protected BaseSpecBuilder<Patient> getSpec(Map<String, String> filterParams) {
         return new PatientSpecBuilder(filterParams);
+    }
+
+    @Override
+    public Patient findByUserId(long userId) {
+        User user = new User();
+        user.setId(userId);
+        return repository.findPatientByUser(user);
     }
 }

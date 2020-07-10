@@ -8,4 +8,5 @@ import com.pemits.webcare.core.service.BaseService;
  */
 public interface PatientService extends BaseService<Patient, Long> {
 
+    Patient findByUserId(long userId);
 }

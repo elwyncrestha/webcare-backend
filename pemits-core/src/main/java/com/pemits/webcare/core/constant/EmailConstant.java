@@ -10,9 +10,10 @@ import com.google.common.collect.ImmutableMap;
 public final class EmailConstant {
 
     public enum Template {
-        REGISTRATION_CREDENTIALS("Registration Credentials!!!");
+        REGISTRATION_CREDENTIALS("Registration Credentials!!!"),
+        PATIENT_REGISTRATION("Patient Registration Credentials!!!");
 
-        private String subject;
+        private final String subject;
 
         Template(String subject) {
             this.subject = subject;
@@ -25,6 +26,7 @@ public final class EmailConstant {
 
     public static final Map<Template, String> MAIL = ImmutableMap.<Template, String>builder()
         .put(Template.REGISTRATION_CREDENTIALS, "/mail/registration-credentials")
+        .put(Template.PATIENT_REGISTRATION, "/mail/patient-registration")
         .build();
 
     private EmailConstant() {}
