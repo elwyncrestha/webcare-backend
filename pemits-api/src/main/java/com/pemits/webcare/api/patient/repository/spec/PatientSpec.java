@@ -14,6 +14,8 @@ import com.pemits.webcare.api.patient.entity.Patient;
  */
 public class PatientSpec implements Specification<Patient> {
 
+    private static final String FILTER_BY_USER_ID = "user.id";
+
     private final String property;
     private final String value;
 
@@ -25,6 +27,11 @@ public class PatientSpec implements Specification<Patient> {
     @Override
     public Predicate toPredicate(Root<Patient> root, CriteriaQuery<?> criteriaQuery,
         CriteriaBuilder criteriaBuilder) {
-        return null;
+        switch (property) {
+            case FILTER_BY_USER_ID:
+                return criteriaBuilder.equal(root.join("user").get("id"), Long.valueOf(value));
+            default:
+                return null;
+        }
     }
 }
