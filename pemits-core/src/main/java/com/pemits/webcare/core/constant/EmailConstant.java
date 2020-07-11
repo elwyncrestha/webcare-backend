@@ -11,7 +11,8 @@ public final class EmailConstant {
 
     public enum Template {
         REGISTRATION_CREDENTIALS("Registration Credentials!!!"),
-        PATIENT_REGISTRATION("Patient Registration Credentials!!!");
+        PATIENT_REGISTRATION("Patient Registration Credentials!!!"),
+        RESET_PASSWORD("Reset your password!!!");
 
         private final String subject;
 
@@ -27,6 +28,7 @@ public final class EmailConstant {
     public static final Map<Template, String> MAIL = ImmutableMap.<Template, String>builder()
         .put(Template.REGISTRATION_CREDENTIALS, "/mail/registration-credentials")
         .put(Template.PATIENT_REGISTRATION, "/mail/patient-registration")
+        .put(Template.RESET_PASSWORD, "/mail/reset-password.html")
         .build();
 
     private EmailConstant() {}

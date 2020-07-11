@@ -17,6 +17,7 @@ public class UserSpec implements Specification<User> {
 
     private static final String FILTER_BY_NAME = "name";
     private static final String FILTER_BY_USER_TYPE = "userType";
+    public static final String FILTER_BY_EMAIL = "email";
 
     private final String property;
     private final String value;
@@ -34,6 +35,8 @@ public class UserSpec implements Specification<User> {
                 return criteriaBuilder.like(root.get(FILTER_BY_NAME), "%" + value + "%");
             case FILTER_BY_USER_TYPE:
                 return criteriaBuilder.equal(root.get(FILTER_BY_USER_TYPE), UserType.valueOf(value));
+            case FILTER_BY_EMAIL:
+                return criteriaBuilder.equal(root.get(FILTER_BY_EMAIL), value);
             default:
                 return null;
         }
