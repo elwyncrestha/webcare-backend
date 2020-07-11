@@ -6,9 +6,12 @@ package com.pemits.webcare.core.constant;
 public class AppConstant {
 
     public static final String USERNAME = "username";
-    public static final String SPRING_MODEL = "spring";
     public static final String SUCCESSFUL = "Successful";
     public static final String FROM_EMAIL = "info@pemits.com";
+    public static final String SOCKET_PUBLISHER = "/webcare-publisher";
+    public static final String SOCKET_SUBSCRIBER = "/webcare-subscriber";
+
+    public static final String NOTIFY_NEW_APPOINTMENT = "You have a new appointment";
 
     private AppConstant() {}
 }
