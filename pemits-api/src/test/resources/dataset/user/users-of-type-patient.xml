@@ -1,0 +1,47 @@
+<dataset>
+  <!-- NULL: created_by, last_modified_by, email -->
+  <users
+    id="5"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    username="marshal"
+    password="$2a$10$CGkAwfRBRIMVoEX8Ui9yx.NC03wKCjE19KIGVNET2F1mn0o58jkly"
+    name="Marshal Doe"
+    status="1"
+    user_type="3"
+  />
+  <users
+    id="6"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    username="jenny"
+    password="$2a$10$CGkAwfRBRIMVoEX8Ui9yx.NC03wKCjE19KIGVNET2F1mn0o58jkly"
+    name="Jenny Doe"
+    status="1"
+    user_type="3"
+  />
+  <users
+    id="7"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    username="penny"
+    password="$2a$10$CGkAwfRBRIMVoEX8Ui9yx.NC03wKCjE19KIGVNET2F1mn0o58jkly"
+    name="Penny Doe"
+    status="1"
+    user_type="3"
+  />
+  <users
+    id="8"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    username="trump"
+    password="$2a$10$CGkAwfRBRIMVoEX8Ui9yx.NC03wKCjE19KIGVNET2F1mn0o58jkly"
+    name="Trump Doe"
+    status="1"
+    user_type="3"
+  />
+</dataset>
