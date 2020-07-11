@@ -233,4 +233,39 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="9-create-notification" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="notification"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="notification">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_NOTIFICATION"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="from_id" type="BIGINT">
+        <constraints foreignKeyName="FK_NOTIFICATION_FROM_ID_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="to_id" type="BIGINT">
+        <constraints foreignKeyName="FK_NOTIFICATION_TO_ID_USERS_ID"
+          referencedTableName="users"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="message" type="LONGTEXT"/>
+      <column name="status" type="INT"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>
