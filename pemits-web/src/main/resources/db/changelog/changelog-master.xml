@@ -280,4 +280,9 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="11-alter-users-add-username-email-unique" author="Elvin Shrestha">
+    <addUniqueConstraint constraintName="UX_USERS_USERNAME" tableName="users" columnNames="username"/>
+    <addUniqueConstraint constraintName="UX_USERS_EMAIL" tableName="users" columnNames="email"/>
+  </changeSet>
+
 </databaseChangeLog>
