@@ -2,6 +2,7 @@ package com.pemits.webcare.api.appointment.repository;
 
 import static com.pemits.webcare.api.doctor.repository.spec.DoctorSpec.FILTER_BY_DEPARTMENT_ID;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -10,10 +11,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,9 @@ public class AppointmentRepositoryTest extends BaseJpaTest {
     private static final long MOCK_DEPARTMENT1_ID = 1L;
     private static final long MOCK_PATIENT1_ID = 1L;
     private static final long MOCK_PATIENT2_ID = 2L;
+    private static final long MOCK_APPOINTMENT2_ID = 2L;
     private static final long MOCK_APPOINTMENT_ID = 1L;
+    private static final LocalDate MOCK_APPOINTMENT_DATE = LocalDate.of(2020,07,12);
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -130,6 +130,95 @@ public class AppointmentRepositoryTest extends BaseJpaTest {
         assertThat(saved.get(1).getId(), notNullValue());
         assertThat(appointmentRepository.count(), equalTo(2L));
     }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testFindAppointmentByIdShouldReturnAppointment() {
+        final Optional<Appointment> appointment = appointmentRepository.findById(MOCK_APPOINTMENT_ID);
+
+        assertThat(appointment.isPresent(), equalTo(true));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testFindAllShouldReturnNotEmptyList() {
+        final List<Appointment> appointments = appointmentRepository.findAll();
+        assertThat(appointments.size(), greaterThan(0));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testGetOneShouldReturnAppointment() {
+        final Appointment appointment = appointmentRepository.getOne(MOCK_APPOINTMENT_ID);
+        assertThat(appointment.getAppointmentDate(), is(MOCK_APPOINTMENT_DATE));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testDeleteByIdShouldDeleteAppointment() {
+        long countAppointment = appointmentRepository.count();
+        appointmentRepository.deleteById(MOCK_APPOINTMENT2_ID);
+        assertThat(appointmentRepository.findAll(), hasSize((int) countAppointment -1));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testDeleteShouldDeleteAppointment() {
+        long countAppointment = appointmentRepository.count();
+        final Appointment appointment = appointmentRepository.getOne(MOCK_APPOINTMENT_ID);
+        appointmentRepository.delete(appointment);
+        assertThat(appointmentRepository.findAll(), hasSize((int) countAppointment -1));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+            "/dataset/user/users-of-type-doctor.xml",
+            "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testDeleteAllShouldReturnZeroAppointment() {
+        appointmentRepository.deleteAll();
+        assertThat(appointmentRepository.findAll(), hasSize(0));
+    }
+
 
     @Test
     @DatabaseSetup("/dataset/department/department-config.xml")
