@@ -1,0 +1,23 @@
+<dataset>
+  <!-- NULL: created_by, last_modified_by -->
+  <notification
+    id="1"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    from_id="5"
+    to_id="1"
+    message="You have new notification from Marshal Doe"
+    status="0"
+  />
+  <notification
+    id="2"
+    created_at="2020-06-20 15:30:00"
+    last_modified_at="2020-06-20 15:30:00"
+    version="0"
+    from_id="6"
+    to_id="1"
+    message="You have new notification from Jenny Doe"
+    status="1"
+  />
+</dataset>
