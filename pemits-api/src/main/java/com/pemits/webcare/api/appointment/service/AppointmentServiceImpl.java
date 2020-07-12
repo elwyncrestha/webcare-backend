@@ -65,7 +65,7 @@ public class AppointmentServiceImpl extends BaseServiceImpl<Appointment, Long> i
             .status(NotificationStatus.UNSEEN)
             .from(saved.getPatient().getUser())
             .to(saved.getDoctor().getUser())
-            .message(NOTIFY_NEW_APPOINTMENT)
+            .message(String.format(NOTIFY_NEW_APPOINTMENT, saved.getPatient().getUser().getName()))
             .build();
         notificationComponent.sendAndSaveMessage(notification);
         return saved;

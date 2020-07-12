@@ -12,7 +12,8 @@ public final class EmailConstant {
     public enum Template {
         REGISTRATION_CREDENTIALS("Registration Credentials!!!"),
         PATIENT_REGISTRATION("Patient Registration Credentials!!!"),
-        RESET_PASSWORD("Reset your password!!!");
+        RESET_PASSWORD("Reset your password!!!"),
+        APPOINTMENT_CONFIRMATION("Appointment Confirmation!!!");
 
         private final String subject;
 
@@ -29,6 +30,7 @@ public final class EmailConstant {
         .put(Template.REGISTRATION_CREDENTIALS, "/mail/registration-credentials")
         .put(Template.PATIENT_REGISTRATION, "/mail/patient-registration")
         .put(Template.RESET_PASSWORD, "/mail/reset-password.html")
+        .put(Template.APPOINTMENT_CONFIRMATION, "/mail/appointment-confirmation.html")
         .build();
 
     private EmailConstant() {}

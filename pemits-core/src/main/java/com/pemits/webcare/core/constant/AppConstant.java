@@ -11,7 +11,9 @@ public class AppConstant {
     public static final String SOCKET_PUBLISHER = "/webcare-publisher";
     public static final String SOCKET_SUBSCRIBER = "/webcare-subscriber";
 
-    public static final String NOTIFY_NEW_APPOINTMENT = "You have a new appointment";
+    public static final String NOTIFY_NEW_APPOINTMENT = "You have a new appointment with %s";
+    public static final String NOTIFY_APPROVED_APPOINTMENT = "Your appointment with %s has been approved.";
+    public static final String NOTIFY_REJECTED_APPOINTMENT = "Your appointment with %s has been rejected.";
 
     private AppConstant() {}
 }

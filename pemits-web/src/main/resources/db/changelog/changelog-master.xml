@@ -268,4 +268,16 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="10-alter-appointment-add-status" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <columnExists tableName="appointment" columnName="status"/>
+      </not>
+    </preConditions>
+
+    <addColumn tableName="appointment">
+      <column name="status" type="INT"/>
+    </addColumn>
+  </changeSet>
+
 </databaseChangeLog>

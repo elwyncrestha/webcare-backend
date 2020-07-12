@@ -16,6 +16,7 @@ import com.pemits.webcare.api.department.entity.Department;
 import com.pemits.webcare.api.doctor.entity.Doctor;
 import com.pemits.webcare.api.patient.entity.Patient;
 import com.pemits.webcare.core.entity.BaseEntity;
+import com.pemits.webcare.core.enums.AppointmentStatus;
 
 /**
  * @Author Mohammad Hussain
@@ -44,5 +45,7 @@ public class Appointment extends BaseEntity<Long> implements Serializable {
 
     @NotEmpty(message = "Appointment time is required")
     private LocalTime appointmentTime;
+
+    private AppointmentStatus status;
 
 }

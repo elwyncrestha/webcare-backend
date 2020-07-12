@@ -23,6 +23,7 @@ public class EmailDto {
     private String webUrl;
     private String patientId;
     private String resetToken;
+    private String message;
 
     private Template template;
 }
