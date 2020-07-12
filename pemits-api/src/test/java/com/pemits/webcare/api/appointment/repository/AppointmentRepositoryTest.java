@@ -4,6 +4,8 @@ import static com.pemits.webcare.api.doctor.repository.spec.DoctorSpec.FILTER_BY
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.time.LocalDate;
@@ -27,12 +29,14 @@ import com.pemits.webcare.api.doctor.repository.DoctorRepository;
 import com.pemits.webcare.api.doctor.repository.spec.DoctorSpecBuilder;
 import com.pemits.webcare.api.patient.entity.Patient;
 import com.pemits.webcare.api.patient.repository.PatientRepository;
+import com.pemits.webcare.core.enums.AppointmentStatus;
 
 public class AppointmentRepositoryTest extends BaseJpaTest {
 
     private static final long MOCK_DEPARTMENT1_ID = 1L;
     private static final long MOCK_PATIENT1_ID = 1L;
     private static final long MOCK_PATIENT2_ID = 2L;
+    private static final long MOCK_APPOINTMENT_ID = 1L;
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -125,5 +129,31 @@ public class AppointmentRepositoryTest extends BaseJpaTest {
         assertThat(saved.get(0).getId(), notNullValue());
         assertThat(saved.get(1).getId(), notNullValue());
         assertThat(appointmentRepository.count(), equalTo(2L));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+        "/dataset/user/users-of-type-doctor.xml",
+        "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/appointment/appointment-config.xml")
+    public void testSaveShouldUpdateAppointmentStatus() {
+        Appointment appointment = appointmentRepository.getOne(MOCK_APPOINTMENT_ID);
+
+        AppointmentStatus oldStatus = AppointmentStatus.PENDING;
+        AppointmentStatus newStatus = AppointmentStatus.APPROVED;
+
+        assertThat(appointment.getStatus(), is(oldStatus));
+
+        appointment.setStatus(newStatus);
+        appointmentRepository.save(appointment);
+
+        Appointment saved = appointmentRepository.getOne(MOCK_APPOINTMENT_ID);
+
+        assertThat(saved.getStatus(), not(oldStatus));
+        assertThat(saved.getStatus(), is(newStatus));
     }
 }
