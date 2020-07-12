@@ -90,4 +90,42 @@ class UserControllerTests {
         assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
     }
 
+    @Test
+    void testResetPassword() throws Exception {
+        final long mockUserId = 1L;
+        final String newPassword = "12345678";
+        final String oldPasswordHash = "abcdef";
+        final String newPasswordHash = "qwerty";
+
+        ChangePasswordDto dto = new ChangePasswordDto();
+        dto.setUserId(mockUserId);
+        dto.setNewPassword(newPassword);
+
+        // password encoder stubs
+        when(passwordEncoder.encode(newPassword)).thenReturn(newPasswordHash);
+
+        // not updated user mock
+        User user = new User();
+        user.setId(mockUserId);
+        user.setPassword(oldPasswordHash);
+
+        // update user mock
+        User saved = new User();
+        BeanUtils.copyProperties(user, saved);
+        saved.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+
+        // stubs
+        when(service.findOne(any(Long.class))).thenReturn(Optional.of(user));
+        when(service.save(any(User.class))).thenReturn(saved);
+
+        MockHttpServletResponse response = mockMvc.perform(
+            post("/v1/users/resetPassword")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(changePasswordDtoJacksonTester.write(dto).getJson())
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
+
+    }
+
 }
