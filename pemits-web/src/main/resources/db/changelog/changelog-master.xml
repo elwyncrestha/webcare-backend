@@ -307,7 +307,7 @@
       <column name="name" type="VARCHAR(255)"/>
       <column name="contact_number" type="VARCHAR(255)"/>
       <column name="email" type="VARCHAR(255)"/>
-      <column name="query" type="VARCHAR(255)"/>
+      <column name="query" type="LONGTEXT"/>
     </createTable>
   </changeSet>
 
