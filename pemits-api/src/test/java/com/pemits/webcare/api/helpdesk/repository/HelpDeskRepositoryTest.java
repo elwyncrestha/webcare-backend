@@ -36,7 +36,6 @@ public class HelpDeskRepositoryTest extends BaseJpaTest {
         helpDesk.setEmail("smith@gmail.com");
         helpDesk.setContactNumber("1234567890");
         helpDesk.setQuery("My first query");
-        helpDesk.setQueryDate(LocalDate.now());
 
         HelpDesk saved = helpDeskRepository.save(helpDesk);
 
@@ -50,14 +49,12 @@ public class HelpDeskRepositoryTest extends BaseJpaTest {
         helpDesk1.setEmail("smith@gmail.com");
         helpDesk1.setContactNumber("1234567890");
         helpDesk1.setQuery("My first query");
-        helpDesk1.setQueryDate(LocalDate.now());
 
         HelpDesk helpDesk2 = new HelpDesk();
         helpDesk2.setName("John");
         helpDesk2.setEmail("john@gmail.com");
         helpDesk2.setContactNumber("1234567890");
         helpDesk2.setQuery("My second query");
-        helpDesk2.setQueryDate(LocalDate.now());
 
         List<HelpDesk> saved = helpDeskRepository.saveAll(Arrays.asList(helpDesk1, helpDesk2));
 
