@@ -8,7 +8,6 @@
             contact_number="1234567890"
             email="smith@gmail.com"
             query="My first query"
-            query_date="[now]"
     />
     <help_desk
             id="2"
