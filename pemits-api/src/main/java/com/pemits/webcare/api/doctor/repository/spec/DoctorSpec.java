@@ -31,7 +31,7 @@ public class DoctorSpec implements Specification<Doctor> {
         CriteriaBuilder criteriaBuilder) {
         switch (property) {
             case FILTER_BY_NAME:
-                return criteriaBuilder.equal(root.join("user").get("name"), value.toLowerCase());
+                return criteriaBuilder.like(root.join("user").get("name"), "%" + value.toLowerCase() + "%");
             case FILTER_BY_USER_ID:
                 return criteriaBuilder.equal(root.join("user").get("id"), Long.valueOf(value));
             case FILTER_BY_DEPARTMENT_ID:
