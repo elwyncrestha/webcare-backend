@@ -311,4 +311,34 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="13-create-appointment_report" author="Elvin Shrestha">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="appointment_report"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="appointment_report">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_APPOINTMENT_REPORT"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="appointment_id" type="BIGINT">
+        <constraints nullable="false"
+          foreignKeyName="fk_appointment_report_appointment_id_appointment_id"
+          referencedTableName="appointment"
+          referencedColumnNames="id"/>
+      </column>
+      <column name="data" type="LONGTEXT"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>
