@@ -341,4 +341,16 @@
     </createTable>
   </changeSet>
 
+  <changeSet id="14-alter-help-desk-add-reply" author="Mohammad Hussain">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <columnExists tableName="help_desk" columnName="reply"/>
+      </not>
+    </preConditions>
+
+    <addColumn tableName="help_desk">
+      <column name="reply" type="LONGTEXT"/>
+    </addColumn>
+  </changeSet>
+
 </databaseChangeLog>

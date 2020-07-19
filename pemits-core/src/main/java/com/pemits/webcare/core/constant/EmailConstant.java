@@ -13,7 +13,8 @@ public final class EmailConstant {
         REGISTRATION_CREDENTIALS("Registration Credentials!!!"),
         PATIENT_REGISTRATION("Patient Registration Credentials!!!"),
         RESET_PASSWORD("Reset your password!!!"),
-        APPOINTMENT_CONFIRMATION("Appointment Confirmation!!!");
+        APPOINTMENT_CONFIRMATION("Appointment Confirmation!!!"),
+        HELP_DESK_QUERY_REPLY("Help Desk Query Reply!!!");
 
         private final String subject;
 
@@ -31,6 +32,7 @@ public final class EmailConstant {
         .put(Template.PATIENT_REGISTRATION, "/mail/patient-registration")
         .put(Template.RESET_PASSWORD, "/mail/reset-password.html")
         .put(Template.APPOINTMENT_CONFIRMATION, "/mail/appointment-confirmation.html")
+         .put(Template.HELP_DESK_QUERY_REPLY, "/mail/help-desk-reply.html")
         .build();
 
     private EmailConstant() {}

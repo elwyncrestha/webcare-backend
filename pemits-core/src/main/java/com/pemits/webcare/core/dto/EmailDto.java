@@ -24,6 +24,7 @@ public class EmailDto {
     private String patientId;
     private String resetToken;
     private String message;
+    private String query;
 
     private Template template;
 }
