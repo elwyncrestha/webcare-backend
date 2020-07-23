@@ -1,6 +1,7 @@
 package com.pemits.webcare.api.notification.repository;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -119,5 +120,20 @@ public class NotificationRepositoryTest extends BaseJpaTest {
 
         assertThat(saved.getStatus(), not(oldStatus));
         assertThat(saved.getStatus(), is(newStatus));
+    }
+
+    @Test
+    @DatabaseSetup("/dataset/department/department-config.xml")
+    @DatabaseSetup({
+        "/dataset/user/users-of-type-doctor.xml",
+        "/dataset/user/users-of-type-patient.xml"
+    })
+    @DatabaseSetup("/dataset/doctor/doctor-config.xml")
+    @DatabaseSetup("/dataset/patient/patient-config.xml")
+    @DatabaseSetup("/dataset/notification/notification-config.xml")
+    public void testFindAllShouldReturnNotEmptyList() {
+        final List<Notification> notifications = repository.findAll();
+
+        assertThat(notifications.size(), greaterThan(0));
     }
 }
