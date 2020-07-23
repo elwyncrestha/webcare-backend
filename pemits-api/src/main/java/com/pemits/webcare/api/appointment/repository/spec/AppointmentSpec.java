@@ -15,7 +15,7 @@ import com.pemits.webcare.api.appointment.entity.Appointment;
  */
 public class AppointmentSpec implements Specification<Appointment> {
 
-    private static final String FILTER_BY_NAME = "name";
+    private static final String FILTER_BY_PATIENT_ID = "patient.id";
 
     private final String property;
     private final String value;
@@ -29,8 +29,8 @@ public class AppointmentSpec implements Specification<Appointment> {
     public Predicate toPredicate(Root<Appointment> root, CriteriaQuery<?> query,
         CriteriaBuilder criteriaBuilder) {
         switch (property) {
-            case FILTER_BY_NAME:
-                return criteriaBuilder.like(root.get(FILTER_BY_NAME), "%" + value + "%");
+            case FILTER_BY_PATIENT_ID:
+                return criteriaBuilder.equal(root.join("patient").get("id"), Long.valueOf(value));
         }
         return null;
     }
