@@ -30,4 +30,5 @@ public class HelpDesk extends BaseEntity<Long> implements Serializable {
     private String email;
     @NotEmpty(message = "Query is required")
     private String query;
+    private String reply;
 }
