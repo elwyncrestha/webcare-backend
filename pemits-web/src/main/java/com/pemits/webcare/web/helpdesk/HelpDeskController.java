@@ -10,10 +10,7 @@ import com.pemits.webcare.core.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -40,26 +37,24 @@ public class HelpDeskController extends BaseController<HelpDesk, Long> {
         this.service = helpDeskService;
     }
 
-    @GetMapping("/reply")
-    public ResponseEntity<?> replyQuery(@RequestParam Long helpDeskQueryId) {
-        Optional<HelpDesk> helpDesk = service.findOne(helpDeskQueryId);
+    @PostMapping("/reply")
+    public ResponseEntity<?> replyQuery(@RequestBody HelpDesk helpDesk) {
+        HelpDesk getHelpDesk = service.save(helpDesk);
 
-        if (!helpDesk.isPresent()) {
-            return new RestResponseDto().fail(HttpStatus.NOT_FOUND, Optional.of("Help Desk Query Not Found"));
+        if (null == getHelpDesk ) {
+            return new RestResponseDto().fail(HttpStatus.NOT_FOUND, Optional.of("Help Desk Not Found"));
         }
-
-        HelpDesk saved = service.save(helpDesk.get());
 
         // send email
         EmailDto emailDto = EmailDto.builder()
                 .template(EmailConstant.Template.HELP_DESK_QUERY_REPLY)
-                .to(saved.getEmail())
-                .toName(saved.getName())
-                .query(saved.getQuery())
-                .message(saved.getReply())
+                .to(getHelpDesk.getEmail())
+                .toName(getHelpDesk.getName())
+                .query(getHelpDesk.getQuery())
+                .message(getHelpDesk.getReply())
                 .build();
         emailService.send(emailDto);
 
-        return new RestResponseDto().success(saved);
+        return new RestResponseDto().success(getHelpDesk);
     }
 }
