@@ -42,6 +42,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             .permitAll()
             .antMatchers(HttpMethod.POST, "/v1/users/resetPassword")
             .permitAll()
+            .antMatchers(HttpMethod.POST, "/v1/feedback")
+            .permitAll()
             .antMatchers("/v1/**")
             .authenticated()
             .and()
