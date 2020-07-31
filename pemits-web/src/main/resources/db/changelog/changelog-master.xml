@@ -353,4 +353,31 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="15-create-feedback" author="Prerana Pandit">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="feedback"/>
+      </not>
+    </preConditions>
+
+    <createTable tableName="feedback">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FEEDBACK"/>
+      </column>
+      <column name="created_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified_at" type="DATETIME">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by" type="BIGINT"/>
+      <column name="last_modified_by" type="BIGINT"/>
+      <column name="version" type="INT"/>
+      <column name="full_name" type="VARCHAR(255)"/>
+      <column name="phone_no" type="VARCHAR(255)"/>
+      <column name="email" type="VARCHAR(255)"/>
+      <column name="message" type="LONGTEXT"/>
+    </createTable>
+  </changeSet>
+
 </databaseChangeLog>
